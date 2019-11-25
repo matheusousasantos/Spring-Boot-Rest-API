@@ -1,42 +1,39 @@
 package curso.api.rest.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import curso.api.rest.model.Usuario;
+import curso.api.rest.repository.UsuarioRepository;
 
 @RestController/*Arquitetura REST*/
 @RequestMapping(value = "/usuario")
 public class IndexController {
 	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
 	/*Serviço RESTfull*/
-	@GetMapping( value = "/", produces = "application/json")
-	public ResponseEntity<Usuario> init() {
+	@GetMapping( value = "/{id}", produces = "application/json")
+	public ResponseEntity<Usuario> init(@PathVariable(value = "id") Long id) {
 		
-		Usuario usuario = new Usuario();
-		usuario.setId(1L);
-		usuario.setNome("Matheus Sousa");
-		usuario.setLogin("123");
-		usuario.setSenha("123");
+		Optional<Usuario> usuario = usuarioRepository.findById(id);	
+		return new ResponseEntity<Usuario>(usuario.get(), HttpStatus.OK);
+	}
+	
+	@GetMapping( value="/", produces = "application/json")
+	public ResponseEntity<List<Usuario>> usuario() {
 		
-		Usuario usuario1 = new Usuario();
-		usuario1.setId(2L);
-		usuario1.setNome("Luma Hashilley");
-		usuario1.setLogin("555");
-		usuario1.setSenha("555");
-		
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		
-		usuarios.add(usuario);
-		usuarios.add(usuario1);
-		
-		return new ResponseEntity(usuarios, HttpStatus.OK);
+		List<Usuario> list = (List<Usuario>) usuarioRepository.findAll();
+		return new ResponseEntity<List<Usuario>>(list, HttpStatus.OK);
 	}
 	
 }
