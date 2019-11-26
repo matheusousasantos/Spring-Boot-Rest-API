@@ -21,7 +21,7 @@ public class IndexController {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	@GetMapping( value = "/{id}/codigovenda/{venda}", produces = "application/pdf")
+	@GetMapping( value = "/{id}/codigovenda/{venda}", produces = "application/json")
 	public ResponseEntity<Usuario> relatorio(@PathVariable(value = "id") Long id,
 			@PathVariable(value = "venda") Long venda) {
 		
