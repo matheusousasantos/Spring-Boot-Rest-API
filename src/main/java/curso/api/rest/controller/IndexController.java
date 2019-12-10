@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,6 +61,15 @@ public class IndexController {
 	public ResponseEntity cadastrarvenda( @PathVariable Long iduser, 
 			                                       @PathVariable Long idvenda) {
 		return new ResponseEntity("id user: " + iduser + " idvenda: " + idvenda , HttpStatus.OK);
+	}
+	
+	/* PUT */
+	@PutMapping(value = "/", produces ="application/json")
+	public ResponseEntity<Usuario> atualizar( @RequestBody Usuario usuario ) {
+		
+		Usuario usuarioSalvo = usuarioRepository.save(usuario);
+		
+		return new ResponseEntity<Usuario>(usuarioSalvo, HttpStatus.OK);
 	}
 	
 }
