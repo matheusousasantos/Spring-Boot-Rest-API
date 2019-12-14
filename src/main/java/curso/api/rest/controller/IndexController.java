@@ -53,6 +53,7 @@ public class IndexController {
 		return "OK!"; //Retorna apenas um OK
 	}
 	
+	@CrossOrigin( origins = "*" )
 	@GetMapping( value="/", produces = "application/json")
 	public ResponseEntity<List<Usuario>> usuario() {
 		
