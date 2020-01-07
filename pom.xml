@@ -76,10 +76,17 @@
 			<scope>runtime</scope>
 		</dependency>
 		
-		<!-- Spring Security -->
+		<!-- Spring Security Web -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
+			<version>5.0.7.RELEASE</version>
+		</dependency>
+		
+		<!-- Spring Security Configuração -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
 			<version>5.0.7.RELEASE</version>
 		</dependency>
 		
