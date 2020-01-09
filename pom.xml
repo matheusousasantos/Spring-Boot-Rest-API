@@ -90,6 +90,13 @@
 			<version>5.0.7.RELEASE</version>
 		</dependency>
 		
+		<!-- Geração de Token -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.7.0</version>
+        </dependency>
+		
 	</dependencies>
 
 	<build>
