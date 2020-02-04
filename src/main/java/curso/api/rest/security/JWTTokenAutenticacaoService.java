@@ -1,8 +1,8 @@
 package curso.api.rest.security;
 
+import java.io.IOException;
 import java.util.Date;
 
-import javax.crypto.SecretKey;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,7 +36,7 @@ public class JWTTokenAutenticacaoService {
 //	Gerando Token de autenticado e adicionando ao cabeçalho a resposta HTTP
 	public void addAuthentication( 
 			HttpServletResponse response,  
-			String username) throws Exception {
+			String username) throws IOException {
 //		recebe a resposta do http assim como o username
 		
 //		Montagem do Token - precisamos inserir uma dependência
