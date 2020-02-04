@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -37,7 +38,14 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter{
 		.anyRequest().authenticated().and().logout().logoutSuccessUrl("/index")
 		
 //      Mapeia URL de Logout e invalida o usuário
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		
+//		Filtra requisições de login para autenticação
+		.and().addFilterBefore(new 
+				JWTLoginFilter("/login", authenticationManager()), 
+				UsernamePasswordAuthenticationFilter.class)
+		
+		.addFilterBefore(new JwtApiAutenticacaoFilter(), UsernamePasswordAuthenticationFilter.class);
 		
 		
 //      ----------
@@ -46,8 +54,6 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		
-		
 		
 		/*Service que irá consultar usuário no banco de dados*/
 		auth.userDetailsService(implementacaoUserDatailsService)
