@@ -55,6 +55,7 @@ public class JWTTokenAutenticacaoService {
 		
 //		Escreve token como resposta no corpo do http
 		response.getWriter().write("{\"Authorization\": \"" + token + "\"}");
+		System.out.println("{\"Authorization\": \"" + token + "\"}");
 		
 	}
 	

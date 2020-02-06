@@ -92,7 +92,20 @@ public class IndexController {
 		
 //      Amarrando esses telefones a esse usuário
 		for( int pos = 0; pos < usuario.getTelefones().size(); pos++ ) {
-			usuario.getTelefones().get(pos).setUsuario(usuario);;
+			usuario.getTelefones().get(pos).setUsuario(usuario);
+		}
+		
+		Usuario userTemporario = usuarioRepository.
+				findUserByLogin(usuario.getLogin());
+		
+//		Senhas doferentes
+		if(!userTemporario.getSenha().equals(usuario.getSenha())) {
+			
+			String senhaCryptografada = new BCryptPasswordEncoder()
+					.encode(usuario.getSenha());
+			
+			usuario.setSenha(senhaCryptografada);
+
 		}
 		
 		Usuario usuarioSalvo = usuarioRepository.save(usuario);
